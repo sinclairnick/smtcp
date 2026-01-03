@@ -1,0 +1,59 @@
+# Example SMTCP configuration
+
+server:
+  port: 25
+  # host: 0.0.0.0
+  # secure: false
+  # auth:
+  #   user: admin
+  #   pass: secret
+
+defaults:
+  model: openai:gpt-4o
+  systemPrompt: |
+    You are an AI assistant that processes incoming emails.
+    Analyze the email content and respond appropriately.
+    Be concise and helpful in your responses.
+  maxSteps: 10
+
+routes:
+  # Process bills to extract invoice information
+  - match: "bills@*"
+    systemPrompt: |
+      You process bill and invoice emails.
+      Extract the following information:
+      - Vendor name
+      - Invoice number
+      - Amount due
+      - Due date
+      - Payment instructions
+
+  # Handle support inquiries
+  - match: "*@support.*"
+    model: anthropic:claude-3-5-sonnet
+    systemPrompt: |
+      You are a helpful customer support assistant.
+      Answer questions politely and thoroughly.
+      If you cannot help, explain what information is needed.
+
+  # Catch-all route
+  - match: "*"
+    priority: -100
+    systemPrompt: |
+      You received an email. Summarize it briefly.
+
+# MCP Servers (optional)
+# mcpServers:
+#   - name: filesystem
+#     type: stdio
+#     command: npx
+#     args: ["@anthropic/mcp-server-filesystem", "/data"]
+
+# Outgoing SMTP for sending replies
+# smtp:
+#   host: smtp.example.com
+#   port: 587
+#   auth:
+#     user: ${SMTP_USER}
+#     pass: ${SMTP_PASS}
+#   from: smtcp@example.com

@@ -1,0 +1,14 @@
+services:
+  smtcp:
+    build: .
+    ports:
+      - "2525:25"
+    volumes:
+      - ./config.yaml:/config/config.yaml:ro
+      - ./handlers:/handlers:ro
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - SMTCP_PORT=25
+      - SMTCP_CONFIG=/config/config.yaml
+    restart: unless-stopped

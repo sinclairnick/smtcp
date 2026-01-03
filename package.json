@@ -1,0 +1,77 @@
+{
+  "name": "smtcp",
+  "version": "0.1.0",
+  "description": "AI-powered email processing framework with MCP integration",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "smtcp": "./dist/runtime/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "tsx watch src/runtime/standalone.ts",
+    "build": "tsc",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "smtp",
+    "email",
+    "ai",
+    "mcp",
+    "model-context-protocol",
+    "llm",
+    "automation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "ai": "^4.0.0",
+    "@ai-sdk/mcp": "^1.0.0",
+    "smtp-server": "^3.13.0",
+    "mailparser": "^3.7.0",
+    "nodemailer": "^6.9.0",
+    "zod": "^3.23.0",
+    "yaml": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/smtp-server": "^3.5.0",
+    "@types/mailparser": "^3.4.0",
+    "@types/nodemailer": "^6.4.0",
+    "typescript": "^5.7.0",
+    "tsx": "^4.19.0",
+    "vitest": "^2.1.0"
+  },
+  "peerDependencies": {
+    "@ai-sdk/openai": ">=1.0.0",
+    "@ai-sdk/anthropic": ">=1.0.0",
+    "@ai-sdk/google": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@ai-sdk/openai": {
+      "optional": true
+    },
+    "@ai-sdk/anthropic": {
+      "optional": true
+    },
+    "@ai-sdk/google": {
+      "optional": true
+    }
+  }
+}
